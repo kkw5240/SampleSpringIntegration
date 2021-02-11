@@ -1,12 +1,12 @@
 # sampleSpringIntegration
 Sample of Spring Integration with HTTP/SOAP
 
-##개요
+## 개요
 Spring Integration은 Interface들을 위한 하나의 큰 틀이다.
 각 Interface들의 Message(Data)간 전달을 위하여 큰 틀에서 추상화 시켰다.
 
-##구조
-###Message
+## 구조
+### Message
 모든 System은 결국 Data의 전달을 위한 짜임임.
 대부분의 Data는 실질적인 Value와 META Data로 나뉨.
 Java는 Type 기반의 언어이므로 Data의 Type이 변경 될 때마다 Interface를 수정해야한다면
@@ -19,7 +19,7 @@ Java는 Type 기반의 언어이므로 Data의 Type이 변경 될 때마다 Inte
 
 
 
-####Message Header
+#### Message Header
 Header는 Key-Value의 형태를 띄며 불변객체(Read-Only)이다.
 
 	public final class MessageHeaders implements Map<String, Object>, Serializable {
@@ -33,7 +33,7 @@ Header의 값은 아래와 같은 방법으로 불러온다.
 	CustomerId customerId = messageHeaders.get("customerId", CustomerId.class);
 	Long timestamp = messageHeaders.getTimestamp();
 
-####Message Builder
+#### Message Builder
 Message Interface에는 불변성을 깨뜨릴 수 있는 Setter가 존재하지 않는다.
 따라서 긴 파라메터 목록을 가진 Constructor로 생성해야 하는데,
 편의를 위하여 MessageBuilder Class가 Message 객체를 생성한다. (Method Chaining)
@@ -50,7 +50,7 @@ Message Interface에는 불변성을 깨뜨릴 수 있는 Setter가 존재하지
                             .get("foo"));
 
 
-###Message Channel (Pipe)
+### Message Channel (Pipe)
 Message가 전달되는 통로.
 Message와 마찬가지로 통로의 경우도
 Publisher와 Subscriber에 종속적이지 않게 설계되어있다.
@@ -61,10 +61,10 @@ Publisher와 Subscriber에 종속적이지 않게 설계되어있다.
 [<img src="https://image.slidesharecdn.com/springintegration-150420040755-conversion-gate02/95/spring-integration-45-638.jpg?cb=1429517566![img_3.png](img_3.png)">](https://www.slideshare.net/WangeunLee/spring-integration-47185594)
 
 
-###Message Endpoint (Filter)
+### Message Endpoint (Filter)
 Message Channel을 통해 Message 송수신 등과 같은 처리를 돕는 모듈
 
-####Message Endpoint의 종류
+#### Message Endpoint의 종류
 | Component | Description |
 | :--------- | :----------- |
 | Gateway |	Business Logic에서 Message 송수신을 쉽게 도움.<br/><br/>Message를 Channel별로 DI받아 생성하여 해당 Channel로 보냄<br/> → Coupling 발생 → Gateway 사용<br/> → 사전에 개발자가 정의한 interface로 Proxy Bean을 제공함으로써 Message 생성 / Channel로 전송하는 Messaging Framework에 종속된 개발 과정이 제거됨.<br/> → POJO를 직접 send 가능해짐. |
@@ -78,7 +78,7 @@ Message Channel을 통해 Message 송수신 등과 같은 처리를 돕는 모�
 | Message Bridge | 다른 종류의 Messaging Channel이나 Adapter를 연결 |
 | Message Enricher | 수신 Message에 추가적인 정보를 더하여 확장, 수정된 객체를 하위 Consumer에게 전송 |
 
-참고
+## 참고
 * https://docs.spring.io/spring-integration/docs/current/reference/html/index.html
 * https://blog.naver.com/fltltmxjs/220008414333
 * https://www.slideshare.net/WangeunLee/spring-integration-47185594
